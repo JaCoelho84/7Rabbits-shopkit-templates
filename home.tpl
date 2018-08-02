@@ -7,8 +7,8 @@ Description: Home Page
 <div id="services_content">
 {% block content %}
 	
-	{% set images_banners_product = products('order:random category:#{109132} limit 4') %}
-	{% set featured_products = products('order:random category:#{33642} limit 4') %}
+	{% set products_with_banner_images = products('order:random category:#{109132} limit 4') %}
+	{% set products_image_link = products('order:random category:#{33642} limit 4') %}
 	<div class="slideshow-wrapper">
 
 		<div class="text">
@@ -16,16 +16,17 @@ Description: Home Page
 			<h4>{{ store.notice }}</h4>
 		</div>
 
-		{% if images_banners_product %}
-			<div class="slideshow visible-desktop">
-				{% if store.image_header_1 %}<img src="{{ store.image_header_1 }}" alt="{{ store.name }}">{% endif %}
-				{% if store.image_header_2 %}<img src="{{ store.image_header_2 }}" alt="{{ store.name }}">{% endif %}
-				{% if store.image_header_3 %}<img src="{{ store.image_header_3 }}" alt="{{ store.name }}">{% endif %}
-				</div>
+		{% if products_with_banner_images %}
+			<div class="slideshow visible-desktop">	
+				{% for product in products_with_banner_images %}
+					{% for image_banner in product.images %}
+						{% if image_banner.full %}<img src="{{ image_banner.full }}" alt="{{ product.title }}">{% endif %}
+			 	{% endfor %}
+			</div>
 		{% endif %}
 	</div>
 
-	{% if featured_products %}
+	{% if products_image_link %}
 
 		<div class="home-featured-products">
 			<div class="content">
@@ -36,7 +37,7 @@ Description: Home Page
 
 				<section class="products">
 
-					{% for product in featured_products %}
+					{% for product in products_image_link %}
 					<article class="product-id-{{ product.id }} product">
 						<div class="img">
 							<a href="{{ product.url }}" class="link-block">{{ product.title }}</a>
