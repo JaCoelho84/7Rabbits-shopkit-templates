@@ -4,8 +4,8 @@ Description: Home Page
 
 {% extends 'base.tpl' %}
 
+{% block content %}
 <div id="services_content">
-{% block content-first %}
 	
 	{% set products_with_banner_images = products('order:random category:#{109132} limit 4') %}
 	{% set products_image_link = products('order:random category:#{33642} limit 4') %}
@@ -80,10 +80,8 @@ Description: Home Page
 		</div>
 	{% endif %}
 
-{% endblock %}
 </div>
 <div id="produts_content" style="display:none">
-{% block content %}
 
 	{% set featured_products = products('featured limit:8') %}
 	{% set new_products = products('new limit:4') %}
@@ -207,5 +205,5 @@ Description: Home Page
 		</div>
 	{% endif %}
 
-{% endblock %}
 </div>
+{% endblock %}
