@@ -5,7 +5,7 @@ Description: Home Page
 {% extends 'base.tpl' %}
 
 <div id="services_content">
-{% block content %}
+{% block content-first %}
 	
 	{% set products_with_banner_images = products('order:random category:#{109132} limit 4') %}
 	{% set products_image_link = products('order:random category:#{33642} limit 4') %}
@@ -21,6 +21,7 @@ Description: Home Page
 				{% for product in products_with_banner_images %}
 					{% for image_banner in product.images %}
 						{% if image_banner.full %}<img src="{{ image_banner.full }}" alt="{{ product.title }}">{% endif %}
+					{% endfor %}
 			 	{% endfor %}
 			</div>
 		{% endif %}
