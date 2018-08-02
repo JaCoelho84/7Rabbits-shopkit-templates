@@ -7,8 +7,9 @@ Description: Home Page
 {% block content %}
 <div id="services_content">
 	
-	{% set products_with_banner_images = products('order:random category:#{109132} limit 4') %}
-	{% set products_image_link = products('order:random category:#{33642} limit 4') %}
+	{% set products_with_banner_images = products("order:random category:109132 limit:4") %}
+	
+	{% set products_image_link = products("order:random category:109128 limit:5") %}
 	<div class="slideshow-wrapper">
 
 		<div class="text">
@@ -93,8 +94,10 @@ Description: Home Page
 			<h4>{{ store.notice }}</h4>
 		</div>
 
-		{% if store.image_header_3 %}
+		{% if  store.image_header_1 or store.image_header_2 or store.image_header_3 %}
 			<div class="slideshow visible-desktop">
+				{% if store.image_header_1 %}<img src="{{ store.image_header_1 }}" alt="{{ store.name }}">{% endif %}
+				{% if store.image_header_2 %}<img src="{{ store.image_header_2 }}" alt="{{ store.name }}">{% endif %}
 				{% if store.image_header_3 %}<img src="{{ store.image_header_3 }}" alt="{{ store.name }}">{% endif %}
 			</div>
 		{% endif %}
