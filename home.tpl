@@ -7,9 +7,9 @@ Description: Home Page
 {% block content %}
 <div id="services_content">
 	
-	{% set products_with_banner_images = products("order:random category:109132 limit:4") %}
+	{% set products_with_banner_images = products("order:random category:109132 limit:4 hidden") %}
 	
-	{% set products_image_link = products("order:random category:109128 limit:5") %}
+	{% set products_image_link = products("order:random category:109128 limit:5 hidden") %}
 	<div class="slideshow-wrapper">
 
 		<div class="text">
