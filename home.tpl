@@ -5,7 +5,9 @@ Description: Home Page
 {% extends 'base.tpl' %}
 
 {% block content %}
-<div id="services_content active">
+
+{%set has_product_show_product = false %}
+<div id="services_content" class="hideshow active">
 	
 	{% set products_with_banner_images = products("order:random category:109132 limit:4 hidden") %}
 	
@@ -39,11 +41,18 @@ Description: Home Page
 
 					{% for product in products_image_link %}
 					<div class="product-id-{{ product.id }} product-no-hover">
-						<div class="img">
-						{% if product.position > 0 and product(product.position) %}
-							{% set product_with_link = product(product.position) %}
-							<a href="{{ product_with_link.url }}" class="link-block">{{ product_with_link.title }}</a>
+						
+						{% if product.id == 822233 %}
+							{%set has_product_show_product = true %}
+							<div data-id="produts_content" class="img tab-show-product" style="cursor:pointer">
+						{% else %}
+							<div class="img">
 						{% endif %}
+							{% if product.position > 0 and product(product.position) %}
+								{% set product_with_link = product(product.position) %}
+								<a href="{{ product_with_link.url }}" class="link-block">{{ product_with_link.title }}</a>
+							{% endif %}
+						
 							<div class="description">{{ product.description_short }}</div>
 							<img src="{{ product.image.full }}" alt="{{ product.title }}" title="{{ product.title }}">
 						</div>
@@ -66,10 +75,26 @@ Description: Home Page
 	{% endif %}
 
 </div>
+{% if has_product_show_product %}
+<script>
+		$(document).ready(function(){
+			var products = $('.products');
+			$(document).on('click','.tab-show-product',function(){
+				$(this).closest('.hideshow').toggleClass('active inactive');
+				$('#'+$(this).attr('data-id')).toggleClass('inactive active');
+				products.masonry({ isAnimated: true });
+				$('body,html').animate({
+                scrollTop: 0
+            }, 800);
+			});
+		});
+</script>
+{% endif %}
+
 {% if products_image_link %}
-	iv id="produts_content" class="inactive">
+	<div id="produts_content" class="hideshow inactive">
 {% else %}
-	<div id="produts_content">
+	<div id="produts_content" class="hideshow active">
 {% endif %}
 
 	{% set featured_products = products('featured limit:8') %}
