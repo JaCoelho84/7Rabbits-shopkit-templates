@@ -48,18 +48,27 @@ Description: Home Page
 						{% else %}
 							<div class="img">
 						{% endif %}
-							{% if product.position > 0 and product(product.position) %}
-								{% set product_with_link = product(product.position) %}
-								<a href="{{ product_with_link.url }}" class="link-block">{{ product_with_link.title }}</a>
+							{% if (product.position > 0 and product(product.position)) or (product.video_url != '') %}
+								{% if (product.position > 0 and product(product.position)) %}
+									{% set product_with_link = product(product.position) %}
+									<a href="{{ product_with_link.url }}" class="link-block">{{ product_with_link.title }}</a>
+								{% else %}
+									<a href="{{ product.video_url }}" class="link-block">{{ product.title }}</a>
+								{% endif %}
+
 							{% endif %}
-						
+							
 							<div class="description">{{ product.description_short }}</div>
 							<img src="{{ product.image.full }}" alt="{{ product.title }}" title="{{ product.title }}">
 						</div>
 						<h4>
-						{% if product.position > 0 and product(product.position) %}
-							{% set product_with_link = product(product.position) %}
-							<a href="{{ product_with_link.url }}">{{ product.title }}</a>
+						{% if (product.position > 0 and product(product.position)) or (product.video_url != '') %}
+							{% if (product.position > 0 and product(product.position)) %}
+									{% set product_with_link = product(product.position) %}
+									<a href="{{ product_with_link.url }}" class="link-block">{{ product_with_link.title }}</a>
+								{% else %}
+									<a href="{{ product.video_url }}" class="link-block">{{ product.title }}</a>
+								{% endif %}
 						{% else %}
 							<div>{{ product.title }}</div>
 						{% endif %}
